@@ -1,3 +1,31 @@
 /*
+ * if cell i-1 exists and contains a 0, can walk to cell i-1
+ * if cell i+1 contains a zero, you can walk to cell i+1
+ * if cell i+leap contains a zero, you can jump to cell i+leap
+ * if i+leap >= n, it's a win
+ * game = [0, 0, 0, 0, 0] leap=3, jump to the end and win
+ * game = [0, 0, 0, 1, 1, 1] and leap=5, walk to index 1, adn then jup i + leap = 1 + 5 = 6 and win
+ * game = [0, 0, 1, 1, 1, 0] and leap=3, no way can win
+ * game = [0, 1, 0] and leap = 1, no way
+ */
 
-*/
+public static boolean canWin(int leap, int[] game) {
+    return isSolvable(leap, game, 0);
+}
+
+private static boolean isSolvable(int leap, int[] game, int i) {
+    // Base Cases
+    if (i >= game.length) {
+        return true;
+    } else if (i < 0 || game[i] == 1) {
+        return false;
+    }
+            
+    game[i] = 1; // marks as visited
+
+    // Recursive Cases
+    return isSolvable(leap, game, i + leap) || 
+           isSolvable(leap, game, i + 1) || 
+           isSolvable(leap, game, i - 1);
+  // see any of this return true, if not, return false
+}
