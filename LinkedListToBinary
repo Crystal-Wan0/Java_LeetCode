@@ -1,0 +1,52 @@
+// Input: head = [1,0,1]
+// Output: 5
+// Explanation: (101) in base 2 = (5) in base 10
+// Example 2:
+
+// Input: head = [0]
+// Output: 0
+ 
+// 1290. Convert Binary Number in a Linked List to Integer
+
+class Solution {
+    public int getDecimalValue(ListNode head) {
+        int count=0;
+        ListNode temp=head;
+		//get the length
+        while(temp!=null){
+            count++;
+            temp=temp.next;
+        }
+        int dec=0;
+		//decrement the count and get power of 2^ count
+		//Multiply with head.val
+        while(head!=null){
+            count--;
+            dec+=(head.val)*(int)(Math.pow(2,count));
+            head=head.next;
+        }
+        return dec;
+    }
+}
+
+// Reversing the linked list
+class Solution {
+    public int getDecimalValue(ListNode head) {
+
+		int count=0,res=0;
+        ListNode prev=null;
+        int powTwo=1;
+        while(head!=null){
+            ListNode nextNode=head.next;
+            head.next=prev;
+            prev=head;
+            head=nextNode;
+        }
+        while(prev!=null){
+            res+=prev.val*powTwo;
+            powTwo*=2;
+            prev=prev.next;
+        }
+        return res;
+	}
+}
