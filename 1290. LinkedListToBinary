@@ -1,0 +1,42 @@
+// Input: head = [1,0,1]
+// Output: 5
+// Explanation: (101) in base 2 = (5) in base 10
+// Example 2:
+
+// Input: head = [0]
+// Output: 0
+ 
+// 1290. Convert Binary Number in a Linked List to Integer
+
+class Solution {
+    public int getDecimalValue(ListNode head) {
+        
+        
+        ArrayList<Integer> list = new ArrayList<Integer>();
+        while (head != null){
+            list.add(head.val);
+            head = head.next;
+        }
+        
+        int pow = 1;
+        int result = 0;
+        
+        for(int i = list.size() - 1; i >= 0; i--){
+            result += list.get(i) * pow;
+            pow *= 2;
+        }
+        
+        return result;
+        
+    }
+}
+
+#python
+class Solution:
+	def getDecimalValue(self, head: ListNode) -> int:
+		number = ''
+		while head != None:
+			number = number + str(head.val)  // turn the linklist to str
+			head = head.next
+		result = int(number,2)  // turn str to binary
+		return result
