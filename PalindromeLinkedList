@@ -1,0 +1,65 @@
+// 234. Palindrome Linked List
+// Given the head of a singly linked list, return true if it is a palindrome.
+
+// Input: head = [1,2,2,1]
+// Output: true
+
+// Input: head = [1,2]
+// Output: false
+    
+class Solution {
+    public boolean isPalindrome(ListNode head) {
+        ListNode slow = head;
+        ListNode fast = head;
+        while (fast != null && fast.next != null){
+            slow = slow.next;
+            fast = fast.next.next; // run twice as fast as the slow
+        }
+        slow = reverse(slow);  // now the slow is at the middle of the list (1 2 3 3 2 1), reverse the second half of list (1 2 3 1 2 3)
+        fast = head;   // fast start over and compare
+        while (slow != null){
+            if (slow.val != fast.val)
+                return false;
+            slow = slow.next;
+            fast = fast.next;
+        }
+        return true;
+    }
+    public ListNode reverse (ListNode head){
+        ListNode prev = null;
+        while (head != null){
+            ListNode next = head.next;
+            head.next = prev; // set next to prev to reverse
+            prev = head;
+            head = next;
+        }
+        return prev;
+    }
+}
+
+// using ArrayList
+class Solution {
+    public boolean isPalindrome(ListNode head) {
+        List<Integer> l=new ArrayList<>(); 
+        while(head!=null){
+            l.add(head.val);
+            head=head.next;
+        } 
+        for(int i=0;i<l.size()/2;i++){
+            if(l.get(i)!=l.get(l.size()-i-1))
+                return false;
+      }
+  }
+
+
+class Solution {
+   public boolean isPalindrome(ListNode head) {
+       List<Integer> l=new ArrayList<>(); 
+       while(head!=null){
+           l.add(head.val);
+           head=head.next;
+       } 
+   List<Integer> li=new ArrayList<>(l);
+   Collections.reverse(l);
+   return (l.equals(li));
+ }
