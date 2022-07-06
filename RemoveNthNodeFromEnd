@@ -1,0 +1,25 @@
+// 19. remove Nth Node from end of the list
+
+// 1->2->3->4->5, n = 2
+// 1->2->3->5
+
+class Solution {
+    public ListNode removeNthFromEnd(ListNode head, int n) {
+        ListNode dummy_head = new ListNode(0);
+        dummy_head.next = head;
+        
+        ListNode slow = dummy_head.next;
+        ListNode fast = dummy_head.next;
+        
+        for (int i=1; i<=n+1; i++){
+            fast = fast.next; // let the fast node go several units first
+        }
+        
+        while (fast != null) {
+            slow = slow.next;
+            fast = fast.next;
+        }
+        slow.next = slow.next.next; // delete the target node
+        return dummy_head.next;
+    }
+}
