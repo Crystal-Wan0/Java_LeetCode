@@ -3,6 +3,7 @@
 // 1->2->3->4->5, n = 2
 // 1->2->3->5
 
+// runtime error
 class Solution {
     public ListNode removeNthFromEnd(ListNode head, int n) {
         ListNode dummy_head = new ListNode(0);
@@ -21,5 +22,34 @@ class Solution {
         }
         slow.next = slow.next.next; // delete the target node
         return dummy_head.next;
+    }
+}
+
+// better
+class Solution
+{
+    public ListNode removeNthFromEnd(ListNode head, int n) 
+    {
+        // O(L) time | O(1) space
+        // two pointer technique
+        ListNode dummyHead = new ListNode(-1);
+        dummyHead.next = head;
+        ListNode left = dummyHead;
+        ListNode right = head;
+        
+        while(n > 0)
+        {
+            n -= 1;
+            right = right.next;
+        }
+        
+        while(right != null)
+        {
+            left = left.next;
+            right = right.next;
+        }
+        left.next = left.next.next;
+        
+        return dummyHead.next;
     }
 }
