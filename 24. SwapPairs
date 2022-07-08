@@ -1,0 +1,39 @@
+// 24. Swap Nodes in Pairs
+// Given a linked list, swap every two adjacent nodes and return its head. You must solve the problem without modifying the values in the list's nodes (i.e., only nodes themselves may be changed.)
+
+// Input: head = [1,2,3,4]
+// Output: [2,1,4,3]
+
+// Input: head = []
+// Output: []
+
+// Input: head = [1]
+// Output: [1]
+
+class Solution {
+    public ListNode swapPairs(ListNode head) {
+        if (head == null || head.next == null)
+            return head;
+        
+        // define prev and cur
+        ListNode dummy = new ListNode();
+        dummy.next = head;
+        ListNode prev = dummy;
+        ListNode cur = head;
+        
+        // swap
+        while(cur != null && cur.next != null){
+            ListNode nex = cur.next;  // cur is 1, nex is 2
+            cur.next = nex.next;  // get 1 point to 3
+            nex.next = prev.next; // get 2 point to 1
+            prev.next = nex; // dummy point to 2, which set 2 to head
+            
+            // update cur and prev
+            prev = cur;
+            cur = cur.next;
+        } 
+        
+        // return head node
+        return dummy.next;
+    }
+}
