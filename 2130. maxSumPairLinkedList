@@ -54,3 +54,85 @@ class Solution {
         return maxSum;
     }
 }
+
+public int pairSum(ListNode head) {
+        int n=0;
+        ListNode t=head;
+        
+        while(t!=null)
+        {
+            t=t.next;
+            n++;
+        }
+        
+        int res=Integer.MIN_VALUE;
+        Map<Integer,Integer> m = new HashMap<>();
+        int i=0;
+        t=head;
+        while(i<=(n/2)-1)
+        {
+            m.put(i,t.val);   
+            t=t.next;
+            i++;
+        }
+        
+        while(t!=null)
+        {
+            int j = n-1-i;
+            res = Math.max(res,t.val+m.get(j));
+            t=t.next;
+            i++;
+        }
+        
+        return res;
+    }
+    
+// find the middle of the linked list
+// Reverse the list from middle
+// Traverse the list until one pointer reaches null
+class Solution {
+
+    public int pairSum(ListNode head) {
+        
+        int max=0;
+
+        //find middle now
+        ListNode slow=head;
+        ListNode fast=head;
+        while (fast.next != null && fast.next.next != null)
+        {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+
+        ListNode reversed = reverse(slow);
+
+        //Even number of nodes so check null only for one.
+        while (head != null)
+        {
+            max = Math.max(head.val +  reversed.val,max);
+            head = head.next;
+            reversed = reversed.next;
+        }
+
+        return max;
+    }
+
+
+    private static ListNode reverse(ListNode head)
+    {
+        ListNode prev = null;
+        ListNode curr = head;
+        ListNode next = null;
+
+        while (curr != null)
+        {
+            next = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = next;
+        }
+
+        return prev;
+    }
+}
