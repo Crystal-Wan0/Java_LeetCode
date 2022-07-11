@@ -48,10 +48,10 @@ class Solution {
         ListNode attach2 = null;
         for(int i = 0; i < b + 2; i++){
             if(i == a - 1){
-                attach1 = lista;
+                attach1 = lista; // the node before index a
             }
             if(i == b + 1){
-                attach2 = lista;
+                attach2 = lista; // the node after index b
             }
              lista = lista.next;
         }
