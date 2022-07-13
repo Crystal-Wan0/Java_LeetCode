@@ -1,0 +1,18 @@
+// 1165
+// special keyboard with all keys in a single row
+// start index 0
+// count the total of finger moves
+
+class Solution {
+  public int calculateTime(Stirng keyboard, String word) {
+    int total = 0;
+    int fromIndex = 0;
+    for (char c : word.toCharArray()) {
+      int fingerMoves = Math.abs(fromIndex - keyboard.indexOf(c));
+      fromIndex = keyboard.indexOf(c);
+      total += fingerMoves;
+    }
+    return total;
+  }
+}
+     
