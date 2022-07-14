@@ -1,0 +1,48 @@
+// 1790. Check if One String Swap Can Make Strings Equal
+// You are given two strings s1 and s2 of equal length. A string swap is an operation where you choose two indices in a string (not necessarily different) and swap the characters at these indices.
+
+// Return true if it is possible to make both strings equal by performing at most one string swap on exactly one of the strings. Otherwise, return false.
+
+// Input: s1 = "bank", s2 = "kanb"
+// Output: true
+// Explanation: For example, swap the first character with the last character of s2 to make "bank".
+
+// Input: s1 = "attack", s2 = "defend"
+// Output: false
+// Explanation: It is impossible to make them equal with one string swap.
+    
+// Input: s1 = "kelb", s2 = "kelb"
+// Output: true
+// Explanation: The two strings are already equal, so no string swap operation is required.
+
+class Solution {
+    public boolean areAlmostEqual(String s1, String s2) {
+        int l1 = s1.length();
+        int l2 = s2.length();
+        
+        if (l1 != l2) return false;
+        if (s1.equals(s2)) return true;
+        
+        char[] a1 = s1.toCharArray();
+        char[] a2 = s2.toCharArray();
+
+        int c = 0;  // count how many char not equals
+        
+        for (int i=0; i<l1; i++){
+            if (a1[i] != a2[i]) {
+                c++;
+            }
+        }
+        
+        Arrays.sort(a1);
+        Arrays.sort(a2);
+
+        String d1=new String(a1);
+        String d2=new String(a2);
+        
+        if (c==2 && d1.equals(d2))
+            return true;
+        return false;
+        
+    }
+}
