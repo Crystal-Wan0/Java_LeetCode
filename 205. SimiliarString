@@ -1,0 +1,75 @@
+// 205. Isomorphic Strings
+// Given two strings s and t, determine if they are isomorphic.
+
+// Two strings s and t are isomorphic if the characters in s can be replaced to get t.
+
+// All occurrences of a character must be replaced with another character while preserving the order of characters. No two characters may map to the same character, but a character may map to itself.
+
+// Input: s = "egg", t = "add"
+// Output: true
+
+// Input: s = "foo", t = "bar"
+// Output: false
+
+// Input: s = "paper", t = "title"
+// Output: true
+
+class Solution {
+    public boolean isIsomorphic(String s, String t) {
+        if(s.length()!=t.length()) return false;
+        char[] s1 = s.toCharArray();
+        char[] t1 = t.toCharArray();
+
+        for (int i = 0 ; i < s.length(); i++){
+            if(s.indexOf(s1[i],i+1)!=t.indexOf(t1[i],i+1)) return false;
+        }
+        return true;
+    }
+}
+
+class Solution {
+    public boolean isIsomorphic(String s, String t) {
+        HashMap<Character, Character> smap = new HashMap<>();
+        HashMap<Character, Character> tmap = new HashMap<>();
+        for (int i = 0; i < s.length(); i++) {
+            if (smap.containsKey(s.charAt(i))) {
+                if (smap.get(s.charAt(i)) != t.charAt(i)) {
+                    return false;
+                }
+            } else if(tmap.containsKey(t.charAt(i))){
+                if(tmap.get(t.charAt(i)) != s.charAt(i)){
+                    return false;
+                }
+            }else {
+                smap.put(s.charAt(i), t.charAt(i));
+                tmap.put(t.charAt(i), s.charAt(i));
+            }
+        }
+        return true;
+    }
+}
+
+
+import java.util.HashMap;
+class Solution {
+    public boolean isIsomorphic(String s, String t) {
+        HashMap<Character,Character> isoMap = new HashMap<Character,Character>();
+        for(int i = 0; i < s.length(); i++){
+            Character sCurr = s.charAt(i);
+            Character tCurr = t.charAt(i);
+            
+            // Check if mapping for sCurr exists
+            if(isoMap.containsKey(sCurr)){
+                if(!isoMap.get(sCurr).equals(tCurr)){ // compare against mapping
+                    return false;
+                }
+            }else if(isoMap.containsValue(tCurr)){ // verify tCurr is not already a key value
+                return false;
+            }else{ // add the mapping
+                isoMap.put(sCurr, tCurr);
+            }
+        }
+        
+        return true;
+    }
+}
