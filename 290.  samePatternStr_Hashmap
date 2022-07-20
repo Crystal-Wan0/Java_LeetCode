@@ -1,0 +1,38 @@
+// 290. Word Pattern
+// Given a pattern and a string s, find if s follows the same pattern.
+
+// Here follow means a full match, such that there is a bijection between a letter in pattern and a non-empty word in s.
+
+// Input: pattern = "abba", s = "dog cat cat dog"
+// Output: true
+
+// Input: pattern = "abba", s = "dog cat cat fish"
+// Output: false
+
+// Input: pattern = "aaaa", s = "dog cat cat dog"
+// Output: false
+
+class Solution {
+    public boolean wordPattern(String pattern, String s) {
+        HashMap<Character, String> mp = new HashMap<>();
+        String [] words = s.split(" ");
+        int l = pattern.length();
+        int size = words.length; 
+        if (l != size) return false;
+        
+        for (int i=0; i<l; i++) {
+            char c = pattern.charAt(i);
+            
+            if (mp.containsKey(c)) {
+                if (!mp.get(c).equals(words[i]))
+                    return false;
+            }   
+            else {
+                if (mp.containsValue(words[i]))
+                    return false;
+                mp.put(c, words[i]);
+            }      
+        }
+        return true;
+    }
+}
