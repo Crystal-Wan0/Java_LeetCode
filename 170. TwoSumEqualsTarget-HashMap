@@ -1,0 +1,28 @@
+
+
+
+class TwoSum {
+  private HashMap<Integer, Integer> map;
+
+  public TwoSum() {
+    map = new HashMap<>();
+  }
+  
+  public void add(int number) {
+    if(map.containsKey(number)) 
+      map.put(number, map.get(number) + 1); // add one to the count of num if the num had existed
+     else
+      map.put(number, 1);
+  }
+  
+  public boolean find(int value) {
+    for (Map.Entry<Integer, Integer> entry : map.entrySet()){
+      int n = entry.getKey();
+      int comp = value - n;
+      if((n == comp && entry.getValue() > 1 || (n != comp) && map.containsKey(comp)) 
+      // for 4: we need to find either two 2s or 1 and 3
+        return true;
+    }
+    return false;
+  }
+}
