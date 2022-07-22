@@ -1,0 +1,86 @@
+// 1346. Check If N and Its Double Exist
+// Given an array arr of integers, check if there exists two integers N and M such that N is the double of M ( i.e. N = 2 * M).
+
+// More formally check if there exists two indices i and j such that :
+
+// i != j
+// 0 <= i, j < arr.length
+// arr[i] == 2 * arr[j]
+
+// Input: arr = [10,2,5,3]
+// Output: true
+// Explanation: N = 10 is the double of M = 5,that is, 10 = 2 * 5.
+
+// Input: arr = [7,1,14,11]
+// Output: true
+// Explanation: N = 14 is the double of M = 7,that is, 14 = 2 * 7.
+
+// Input: arr = [3,1,7,11]
+// Output: false
+// Explanation: In this case does not exist N and M, such that N = 2 * M.
+
+class Solution {
+    public boolean checkIfExist(int[] arr) {
+        int l = arr.length;
+        for (int i=0; i<l; i++){
+            for (int j=i+1; j<l; j++){
+                if (arr[i]==2*arr[j] || arr[j]==2*arr[i])
+                    return true;
+            }
+        }
+        return false;
+    }
+}
+
+class Solution {
+    public boolean checkIfExist(int[] arr) {
+     for(int n=0;n<arr.length;n++){
+            for(int m=0;m<arr.length;m++){
+                if(arr[n]==arr[m]*2 &&  m!=n){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+}
+
+// HashMap practice
+class Solution {
+    public boolean checkIfExist(int[] arr) {
+        int l = arr.length;
+        HashMap<Integer, Integer> mp = new HashMap<>();
+        for (int i=0; i<l; i++){
+            mp.put(arr[i], 2*arr[i]);
+        }
+        for (int i=0; i<l; i++){
+            for (int j=i+1;j<l;j++){
+                if(arr[i]==mp.get(arr[j]) || arr[j] == mp.get(arr[i]))
+                    return true;
+            }
+        }
+        return false;
+    }
+}
+
+class Solution {
+    public boolean checkIfExist(int[] arr) {
+        Map<Integer, Integer> map = new HashMap<>();
+
+        int index = 0;
+        for (Integer no : arr) {
+            map.put(no, index++);
+        }
+
+        for (int i = 0; i < arr.length; i++) {
+            if (map.containsKey(arr[i] * 2)) {
+                if (map.get(arr[i] * 2) != i) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+}
+
