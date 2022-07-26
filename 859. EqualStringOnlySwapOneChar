@@ -1,0 +1,50 @@
+// 859. Buddy Strings
+// Given two strings s and goal, return true if you can swap two letters in s so the result is equal to goal, otherwise, return false.
+
+// Swapping letters is defined as taking two indices i and j (0-indexed) such that i != j and swapping the characters at s[i] and s[j].
+
+// For example, swapping at indices 0 and 2 in "abcd" results in "cbad".
+
+// Input: s = "ab", goal = "ba"
+// Output: true
+// Explanation: You can swap s[0] = 'a' and s[1] = 'b' to get "ba", which is equal to goal.
+
+// Input: s = "ab", goal = "ab"
+// Output: false
+// Explanation: The only letters you can swap are s[0] = 'a' and s[1] = 'b', which results in "ba" != goal.
+
+// Input: s = "aa", goal = "aa"
+// Output: true
+// Explanation: You can swap s[0] = 'a' and s[1] = 'a' to get "aa", which is equal to goal.
+
+class Solution {
+    public boolean buddyStrings(String s, String goal) {
+        if(s.length() != goal.length()) return false;
+        
+        int diffCount = 0; int[] index = new int[2]; int k=0;
+        int[] hash = new int[26]; int duplicate = 0;
+        
+        for(int i=0;i<s.length();i++){
+            hash[s.charAt(i)-'a'] = hash[s.charAt(i)-'a'] + 1;  // put the a to z frequence in hash[0] to hash[25]
+            if(s.charAt(i) != goal.charAt(i)){
+                 diffCount++;
+                 if(diffCount > 2) return false;
+                 index[k++] = i; // put the two indexes of not equal char in the index array
+            }
+        }
+        //s and goal are equal
+        if(diffCount == 0) {
+            for (int i=0; i<26; i++) {
+                if (hash[i] >=2){ // if there're two same char, we can swap that and still equals the goal
+                    duplicate = 1; 
+                }
+            }
+            if(duplicate == 1) return true;
+            return false;
+        }
+        //s and goal are different
+        return (s.charAt(index[0]) == goal.charAt(index[1])
+            &&  s.charAt(index[1]) == goal.charAt(index[0]));
+        
+    }
+}
