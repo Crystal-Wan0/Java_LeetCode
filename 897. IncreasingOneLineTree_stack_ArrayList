@@ -1,0 +1,81 @@
+// 897. Increasing Order Search Tree
+// Given the root of a binary search tree, rearrange the tree in in-order so that the leftmost node in the tree is now the root of the tree, and every node has no left child and only one right child.
+
+// Input: root = [5,3,6,2,4,null,8,1,null,null,null,7,9]
+// Output: [1,null,2,null,3,null,4,null,5,null,6,null,7,null,8,null,9]
+
+// Input: root = [5,1,7]
+// Output: [1,null,5,null,7]
+
+class Solution {
+    public TreeNode increasingBST(TreeNode root) {
+        Stack<TreeNode> st=new Stack<>();
+        TreeNode prev=null,curr=root,head=null;
+        while(curr!=null || !st.isEmpty()){
+            while(curr!=null){
+                st.push(curr);
+                curr=curr.left;
+            }
+            curr=st.pop();
+            if(head==null){ 
+                head=curr;
+            }
+            if(prev!=null){
+                prev.right=curr;
+                curr.left=null;
+            }
+            
+            prev=curr;
+            curr=curr.right;
+        }
+        return head;
+        
+    }
+}
+
+class Solution {
+    public TreeNode increasingBST(TreeNode root) {
+        ArrayList<Integer> list = new ArrayList<>();
+        fillAL(root, list);
+        TreeNode root2 = new TreeNode(list.get(0)); // get the root of the new tree
+        createBST(root2, list);
+        return root2;
+    }
+    void fillAL(TreeNode root, ArrayList<Integer> list){  // get the tree in order and store them in list
+        if(root==null){
+            return;
+        }
+        fillAL(root.left, list);
+        list.add(root.val);
+        fillAL(root.right, list);
+    }
+    void createBST(TreeNode node, ArrayList<Integer> list){
+        for(int i=1; i<=list.size()-1; i++){
+            int curr = list.get(i);  // start with list.get(1)
+            node.right = new TreeNode(curr);  // make the first node.right to list.get(1)
+            node=node.right;
+        }
+    }
+}
+
+class Solution {
+    
+    public TreeNode increasingBST(TreeNode root) {
+         ArrayList<Integer> list= new ArrayList<>();
+        inorder(root,list);
+        TreeNode res= new TreeNode(0),curr=res;
+        for(int i: list){
+            curr.right= new TreeNode(i);
+            curr=curr.right;
+        }
+        return res.right;
+    }
+    public void inorder(TreeNode node,ArrayList<Integer> list){
+        if(node!=null){
+            inorder(node.left,list);
+            list.add(node.val);
+            inorder(node.right,list);
+        }
+    }
+
+}
