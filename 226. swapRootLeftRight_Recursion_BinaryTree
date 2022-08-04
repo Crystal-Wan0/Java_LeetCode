@@ -1,0 +1,27 @@
+// 226. Invert Binary Tree
+// Given the root of a binary tree, invert the tree, and return its root.
+
+// Input: root = [4,2,7,1,3,6,9]
+// Output: [4,7,2,9,6,3,1]
+
+// Input: root = [2,1,3]
+// Output: [2,3,1]
+
+// Input: root = []
+// Output: []
+
+class Solution {
+    public TreeNode invertTree(TreeNode root) {
+        if (root == null) return root;
+        
+        TreeNode temp = root.left; // not only swap the value, need to swap the entire TreeNode. When there's null node, still needs to be swapped
+        root.left = root.right;
+        root.right = temp;
+
+
+        invertTree(root.left);
+        invertTree(root.right);
+        
+        return root;
+    }
+}
