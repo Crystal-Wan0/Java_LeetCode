@@ -1,0 +1,32 @@
+// 965. Univalued Binary Tree
+// A binary tree is uni-valued if every node in the tree has the same value.
+
+// Given the root of a binary tree, return true if the given tree is uni-valued, or false otherwise.
+
+// Input: root = [1,1,1,1,1,null,1]
+// Output: true
+
+// Input: root = [2,2,2,5,2]
+// Output: false
+    
+class Solution {
+    boolean ans=true;
+    int firstVal=0;
+    public boolean isUnivalTree(TreeNode root) {
+        if(root==null)
+            return ans; 
+        firstVal=root.val;
+        traversal(root);
+        return ans;
+    }
+  private void traversal(TreeNode root)
+  {
+    if(root==null)
+      return;
+    if(root.val!=firstVal)
+        ans=false;
+    traversal(root.left);
+    traversal(root.right);
+  }
+}
+
