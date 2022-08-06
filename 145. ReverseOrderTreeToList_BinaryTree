@@ -1,0 +1,37 @@
+// 145. Binary Tree Postorder Traversal
+// Given the root of a binary tree, return the postorder traversal of its nodes' values.
+
+// Input: root = [1,null,2,3]
+// Output: [3,2,1]
+
+// Input: root = []
+// Output: []
+
+// Input: root = [1]
+// Output: [1]
+
+class Solution {
+    ArrayList<Integer> list = new ArrayList<>();
+    public List<Integer> postorderTraversal(TreeNode root) {
+        if (root == null) return list;
+        list.add(0, root.val);
+        
+        postorderTraversal(root.right);
+        postorderTraversal(root.left);
+        
+        return list;
+    }
+}
+
+class Solution {
+    List<Integer> ans = new ArrayList<>();
+    public List<Integer> postorderTraversal(TreeNode root) {
+        if(root == null) return ans;
+        postorderTraversal(root.left);
+        postorderTraversal(root.right);
+        
+        ans.add(root.val);
+        return ans;
+        
+    }
+}
